@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>한국형 디스코훅</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>웹훅을 보내요!</h1>
+        <form>
+            <div class="form-group">
+                <label for="webhook-link">웹훅링크</label>
+                <input type="text" class="form-control" id="webhook-link" placeholder="웹훅 링크 입력">
+            </div>
+            <div class="form-group">
+                <label for="webhook-name">웹훅 이름</label>
+                <input type="text" class="form-control" id="webhook-name" placeholder="웹훅 이름 입력">
+            </div>
+            <div class="form-group">
+                <label for="webhook-content">내용</label>
+                <textarea class="form-control" id="webhook-content" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="webhook-embed-title">임베드 제목</label>
+                <input type="text" class="form-control" id="webhook-embed-title" placeholder="임베드 제목 입력">
+            </div>
+            <div class="form-group">
+                <label for="webhook-embed-description">임베드 내용</label>
+                <textarea class="form-control" id="webhook-embed-description" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="sendWebhook()">Send Webhook</button>
+        </form>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function sendWebhook() {
+            // Get values from input fields
+            var webhookLink = $("#webhook-link").val();
+            var webhookName = $("#webhook-name").val();
+            var content = $("#webhook-content").val();
+            var embedTitle = $("#webhook-embed-title").val();
+            var embedDescription = $("#webhook-embed-description").val();
+
+            // Construct JSON payload for webhook
+            var payload = {
+                "username": webhookName,
+                "content": content,
+                "embeds": [
+                    {
+                        "title": embedTitle,
+                        "description": embedDescription
+                    }
+                ]
+            };
+
+            // Send POST request to webhook URL
+            $.ajax({
+                url: webhookLink,
+                type: "POST",
+                data: JSON.stringify(payload),
+                contentType: "application/json",
+                success: function () {
+                    alert("성공적으로 웹훅을 발송했어요!");
+                },
+                error: function () {
+                    alert("웹훅 전송에 실패했어요!");
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
