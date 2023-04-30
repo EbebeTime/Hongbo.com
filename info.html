@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>에베베 사이트/정보</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #222;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .card {
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: inline-block;
+            margin: 20px;
+            overflow: hidden;
+            width: 300px;
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .card h3 {
+            margin: 20px;
+        }
+
+        .card p {
+            margin: 20px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>사이트 정보</h1>
+        <p>안녕하세요! 에베베 홍보사이트, 홍보.com입니다!. 본 사이트는 더욱 수월한 홍보를 위해 만들어졌습니다!</p>
+        <p>본인의 디스코드를 홍보하고 싶으시다면 메인화면에 가셔서 홍보신청페이지로 가서 신청해주세요!</p>
+        <h2>사이트 총괄</h2>
+        <div class="card">
+            <h3>에베베 / GEN#6881</h3>
+            <p>사이트를 제작하였으며 사이트의 기틀을 마련했습니다.</p>
+        </div>
+        <h2>홍보심의위원회</h2>
+        <div class="card">
+            <h3>언더 / 유니입니당#7087</h3>
+            <p>제 1대 홍보심의위원장, 1호 홍보심의위원입니다.</p>
+        </div>
+        <div class="card">
+            <h3>구인중</h3>
+            <p>GEN#6881로 홍보심의위원회 신청.</p>
+        </div>
+        <h2>개발진</h2>
+        <div class="card">
+            <h3>구인중</h3>
+            <p>GEN#6881로 개발진 신청.</p>
+        </div>
+        <div class="card">
+            <h3>구인중</h3>
+            <p>GEN#6881로 개발진 신청.</p>
+        </div>
+    </div>
+    <div class="text-center" style="margin: 20px auto 0;">
+        <button target="_blank" class="btn btn-primary btn-lg mb-2" onclick="goToIndex()">돌아가기</button>
+        <script>
+            function goToIndex() {
+                window.location.href = "index.html";
+            }
+        </script>
+</body>
+
+</html>
