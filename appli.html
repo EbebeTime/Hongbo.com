@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>에베베 사이트/홍보신청</title>
+
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<style>
+		.container {
+			margin-top: 50px;
+		}
+	</style>
+</head>
+
+<body style="background-color: rgb(37, 37, 37);">
+
+	<div class="container" style="border: 2px solid white; border-radius: 10px; width: 80%; margin: 50px auto 0;">
+		<h1 style="color: white;">홍보신청페이지</h1>
+		<hr>
+		<form id="applicationForm" onsubmit="submitApplication(event)">
+			<div class="form-group">
+				<label for="ownerDiscord" style="color: white;" >소유주 디스코드 닉네임#태그</label>
+				<input type="text" class="form-control" id="ownerDiscord"
+					placeholder="홍보하려는 서버의 소유주 디스코드 닉네임#태그를 입력해주세요." required>
+			</div>
+
+			<div class="form-group">
+				<label for="serverName" style="color: white;">신청 서버 이름</label>
+				<input type="text" class="form-control" id="serverName" placeholder="홍보하려는 서버의 이름을 입력해주세요." required>
+			</div>
+
+			<div class="form-group">
+				<label for="serverDiscord" style="color: white;">신청 서버 디스코드 주소</label>
+				<input type="text" class="form-control" id="serverDiscord" placeholder="홍보하려는 서버의 디스코드 주소를 입력해주세요."
+					required>
+			</div>
+
+			<div class="form-group">
+				<label for="otherLink" style="color: white;">기타 주소</label>
+				<input type="text" class="form-control" id="otherLink" placeholder="홍보하려는 서버 외에 다른 링크가 있다면 입력해주세요.">
+			</div>
+
+			<button type="submit" class="btn btn-primary">신청</button>
+		</form>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<script>
+		const applicationForm = document.getElementById('applicationForm');
+		const submitButton = document.querySelector('button[type="submit"]');
+		const ownerDiscord = document.getElementById('ownerDiscord');
+		const serverName = document.getElementById('serverName');
+		const serverDiscord = document.getElementById('serverDiscord');
+		const otherLink = document.getElementById('otherLink');
+
+		let lastSubmitTime = 0;
+		const MIN_SUBMIT_INTERVAL = 60 * 1000;
+
+		function submitApplication(event) {
+			event.preventDefault();
+
+
+			const currentTime = new Date().getTime();
+			if (currentTime - lastSubmitTime < MIN_SUBMIT_INTERVAL) {
+				alert('신청 후 1분이 지나야 다시 신청할 수 있습니다.');
+				return;
+			}
+
+			if (ownerDiscord.value.trim() === '' || serverName.value.trim() === '' || serverDiscord.value.trim() === '') {
+				alert('모든 필드를 입력해주세요.');
+				return;
+			}
+
+			const discordWebhookUrl = 'https://discord.com/api/webhooks/1101886698381656064/UU-I4NBuYSyLZqoTafiOS910uvUARxnixW0I6oB_o_bnmQrNDIbR2mSt2sxepG4Q-onP';
+			const applicationData = {
+				username: '홍보신청페이지',
+				avatar_url: 'https://i.imgur.com/zO4BUjQ.png',
+				content: `**서버 소유주:** ${ownerDiscord.value}\n**서버 이름:** ${serverName.value}\n**서버 디스코드 주소:** ${serverDiscord.value}\n**기타 주소:** ${otherLink.value || '없음'}`
+			};
+
+			fetch(discordWebhookUrl, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(applicationData)
+			}).then(response => {
+				if (response.ok) {
+					alert('신청이 성공적으로 발송되었습니다.');
+					lastSubmitTime = currentTime;
+					ownerDiscord.value = '';
+					serverName.value = '';
+					serverDiscord.value = '';
+					otherLink.value = '';
+				} else {
+					alert('신청 발송 중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			}).catch(error => {
+				alert('신청 발송 중 오류가 발생했습니다. 다시 시도해주세요.');
+			});
+		}
+	</script>
+	<div class="text-center" style="margin: 20px auto 0;">
+		<button target="_blank" class="btn btn-info btn-lg mb-2" onclick="goToIndex()">돌아가기</button>
+		<script>
+		  function goToIndex() {
+			window.location.href = "index.html";
+		  }
+		</script>
+	  </div>
+</body>
+
+</html>
